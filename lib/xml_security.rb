@@ -131,7 +131,7 @@ module XMLSecurity
       transforms_element = reference_element.add_element("ds:Transforms")
       transforms_element.add_element("ds:Transform", {"Algorithm" => ENVELOPED_SIG})
       c14element = transforms_element.add_element("ds:Transform", {"Algorithm" => C14N})
-      c14element.add_element("ec:InclusiveNamespaces", {"xmlns:ec" => C14N, "PrefixList" => INC_PREFIX_LIST})
+      c14element.add_element("ds:InclusiveNamespaces", {"xmlns:ec" => C14N, "PrefixList" => INC_PREFIX_LIST})
 
       digest_method_element = reference_element.add_element("ds:DigestMethod", {"Algorithm" => digest_method})
       inclusive_namespaces = INC_PREFIX_LIST.split(" ")
@@ -380,7 +380,7 @@ module XMLSecurity
     def extract_inclusive_namespaces
       element = REXML::XPath.first(
         self,
-        "//ec:InclusiveNamespaces",
+        "//ds:InclusiveNamespaces",
         { "ec" => C14N }
       )
       if element
